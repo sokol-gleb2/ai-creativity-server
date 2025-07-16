@@ -137,9 +137,9 @@ const formatSchema = (title, schema) => {
 
 const formatEmailPrompt = async (emailData) => {
   // Load schemas
-  const profileSchema = loadSchema('./profile-structure.json');
-  const eventSchema = loadSchema('./event-structure.json');
-  const groupSchema = loadSchema('./group-structure.json');
+  const profileSchema = loadSchema('../structure/profile-structure.json');
+  const eventSchema = loadSchema('../structure/event-structure.json');
+  const groupSchema = loadSchema('../structure/group-structure.json');
 
   // Build prompt
   const prompt = `
