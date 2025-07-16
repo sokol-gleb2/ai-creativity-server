@@ -86,7 +86,7 @@ imap.once('ready', function () {
               console.log('✅ Email data logged');
 
               // Format prompt and send to OpenAI
-              const prompt = await formatEmailPrompt(emailData);
+              const prompt = await formatEmailPrompt(`Subject: ${emailData.subject}\n\n${emailData.detail}\n\nHTML: ${emailData.html}`);
               try {
                 const openaiResponse = await sendToOpenAI(prompt);
                 console.log('🤖 OpenAI response:', openaiResponse);
@@ -165,6 +165,8 @@ const formatEmailPrompt = async (emailData) => {
     Input:
     ${emailData}
   `;
+
+  console.log('📜 Prompt prepared for OpenAI:', prompt);
 
   return prompt;
 }
