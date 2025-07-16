@@ -115,6 +115,26 @@ imap.once('end', function () {
 
 imap.connect();
 
+const loadSchema = (fileName) => {
+  const fullPath = path.join(__dirname, fileName);
+  return JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
+}
+
+const formatSchema = (title, schema) => {
+  let formatted = `- ${title}:\n`;
+  for (const key in schema) {
+      const val = schema[key];
+      if (Array.isArray(val)) {
+          formatted += `  - ${key}: one of [${val.map(v => `"${v}"`).join(', ')}]\n`;
+      } else if (val === 'long string') {
+          formatted += `  - ${key}: long string\n`;
+      } else {
+          formatted += `  - ${key}: ${val}\n`;
+      }
+  }
+  return formatted;
+}
+
 const formatEmailPrompt = async (emailData) => {
   // Load schemas
   const profileSchema = loadSchema('./profile-structure.json');
