@@ -1,0 +1,6 @@
+{
+  "name": "string",
+  "detail": "long string",
+  "member_count": "int",
+  "category": ["Sports", "Music", "Tech"]
+}

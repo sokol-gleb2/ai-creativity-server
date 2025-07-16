@@ -1,0 +1,481 @@
+Received: from AS1PR05MB9673.eurprd05.prod.outlook.com (2603:10a6:20b:478::20)
+ by AS8PR05MB10777.eurprd05.prod.outlook.com with HTTPS; Tue, 27 May 2025
+ 09:36:08 +0000
+Received: from AS4P250CA0002.EURP250.PROD.OUTLOOK.COM (2603:10a6:20b:5df::20)
+ by AS1PR05MB9673.eurprd05.prod.outlook.com (2603:10a6:20b:478::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.26; Tue, 27 May
+ 2025 09:36:06 +0000
+Received: from AMS1EPF0000004B.eurprd04.prod.outlook.com
+ (2603:10a6:20b:5df:cafe::a6) by AS4P250CA0002.outlook.office365.com
+ (2603:10a6:20b:5df::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.21 via Frontend Transport; Tue,
+ 27 May 2025 09:36:06 +0000
+Authentication-Results: spf=pass (sender IP is 104.47.11.112)
+ smtp.mailfrom=mlist.is.ed.ac.uk; dkim=fail (signature did not verify)
+ header.d=ed.ac.uk;dmarc=pass action=none header.from=ed.ac.uk;compauth=pass
+ reason=100
+Received-SPF: Pass (protection.outlook.com: domain of mlist.is.ed.ac.uk
+ designates 104.47.11.112 as permitted sender)
+ receiver=protection.outlook.com; client-ip=104.47.11.112;
+ helo=EUR02-DB5-obe.outbound.protection.outlook.com; pr=C
+Received: from exseed.ed.ac.uk (129.215.235.40) by
+ AMS1EPF0000004B.mail.protection.outlook.com (10.167.16.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8769.18 via Frontend Transport; Tue, 27 May 2025 09:36:06 +0000
+Received: from hbdat4.is.ed.ac.uk (129.215.235.40) by hbdat4.is.ed.ac.uk
+ (129.215.235.40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 27 May
+ 2025 10:35:13 +0100
+Received: from seine.is.ed.ac.uk (129.215.17.202) by hbdat4.is.ed.ac.uk
+ (129.215.235.40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10 via Frontend
+ Transport; Tue, 27 May 2025 10:35:13 +0100
+Received: from sympa1.is.ed.ac.uk (sympa1.is.ed.ac.uk [129.215.17.18])
+	by seine.is.ed.ac.uk (8.15.2/8.15.2) with ESMTPS id 54R9Z7EB3539265
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
+	for <s1713033@sms.ed.ac.uk>; Tue, 27 May 2025 10:35:07 +0100
+Received: by sympa1.is.ed.ac.uk (Postfix, from userid 988)
+	id 1D5B84010FFB; Tue, 27 May 2025 10:34:56 +0100 (BST)
+X-Original-To: uoe-bame@mlist.is.ed.ac.uk
+Delivered-To: uoe-bame@mlist.is.ed.ac.uk
+Received: from seine.is.ed.ac.uk (seine.is.ed.ac.uk [129.215.17.202])
+	by sympa1.is.ed.ac.uk (Postfix) with ESMTPS id D2DB74010298
+	for <uoe-bame@mlist.is.ed.ac.uk>; Tue, 27 May 2025 10:29:33 +0100 (BST)
+Received: from exseed.ed.ac.uk (hbdkb4.is.ed.ac.uk [129.215.235.39])
+	by seine.is.ed.ac.uk (8.15.2/8.15.2) with ESMTPS id 54R9TTIh3532825
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <uoe-bame@mlist.is.ed.ac.uk>; Tue, 27 May 2025 10:29:29 +0100
+Received: from hbdat4.is.ed.ac.uk (129.215.235.40) by hbdkb4.is.ed.ac.uk
+ (129.215.235.39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 27 May
+ 2025 10:29:08 +0100
+Received: from EUR02-DB5-obe.outbound.protection.outlook.com (104.47.11.112)
+ by hbdat4.is.ed.ac.uk (129.215.235.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10 via Frontend Transport; Tue, 27 May 2025 10:29:08 +0100
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QDz5Wn0zKRWpPiBHb6Q5qxwiRnlyMUsJm/lbMRe4XAKI7gqxirchAZpBhlHEORhJNt2ui/fCvgLOOpoGFr0m0AcQxp02GXWdSgIbk5WTuNusbTrDlbVLFCnH6nmq6AGHYQOlSWlPeuK/TYHNm9BalGN0JC+P1/wnMMGuhSbv1ZrCYfsSeJEaKQPhex64Xja/5XPjRrTlVlXjHVGv2xFgEuwXN47V5Lb98pDR+pqw+rGzylxm07YM6fRkJW6LXuhbi4A/ZQT/OVN11fnL7dLZmxcVm8g1QQnBUb64uiUzxrcuhvcdL0U6ppm5pAx5F9efcsE9Y4uBSavmxHATzfX6QA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Mi2I65EW3zvai1rFlLsPVfoKnr3weC+KmO5Y1cdE5c8=;
+ b=Lny/7kPU2s/gOwJMTyypUD+iCk11V812wQflzq6emK5Gvb775iLOTEZFmXwsAPeHLtmOBTJ11NfW2lzHKO730gFKc9iO3/4+PLmImh9o55QrLRdNMgYNxULqDDWzsMKlKXaj+NxFGejLR9YsMoa3VUChzfGIR4QN+ZmwfjxLdDeq7J8U/PvAUnqFLvwOUbTD/tXy9Kh70Z6QstqZ82LlmxlfZ89j/1TY1YhhIDPrtiiQ95PYwm9J8v1D01Guy807z8agFDBZy0/eCFDm0ylARqEtGtioRzYAF4SoZQRktw/5y/AO9I1V1jyOA9HJ4IAbU/o0Jvwer97g/7d+buvSeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ed.ac.uk; dmarc=pass action=none header.from=ed.ac.uk;
+ dkim=pass header.d=ed.ac.uk; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ed.ac.uk; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Mi2I65EW3zvai1rFlLsPVfoKnr3weC+KmO5Y1cdE5c8=;
+ b=p1iNXbCzV8TFyr2HrJZfPy9N+sNfeE8iGhRxGBoPmS/W1jAY67CN8UhPvpgUJesH1EooSm0MybyAy4g1KqQ3AKztOjhEbf0sc6oUcZ0qlZPsu6UlAKmfLGDvQi8+245sK+R6FyIYvMQ/x0ldmK2VddZ7AUMa31hRZoRGxSVHPZf0mrcW4OsnFHLflKvEU6cczN+H4+QHNs9FcU5V3TdAIbZ7GHZIJdeWMcQr4lFYhDyW6qtEWY67hsAQq8GdAOKAdUohf+n2KQ6KE8uMCW2KPYe2d8juzYQ+Wp/wWLh5epQknnPMcRf7oUzCP6WZPoYYBbhzQ+QuiNhfnCVdVDtBSQ==
+Received: from DB7PR05MB4811.eurprd05.prod.outlook.com (2603:10a6:10:22::16)
+ by DB5PR05MB10764.eurprd05.prod.outlook.com (2603:10a6:10:4a1::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.26; Tue, 27 May
+ 2025 09:28:53 +0000
+Received: from DB7PR05MB4811.eurprd05.prod.outlook.com
+ ([fe80::21f9:9720:de9e:a5ca]) by DB7PR05MB4811.eurprd05.prod.outlook.com
+ ([fe80::21f9:9720:de9e:a5ca%6]) with mapi id 15.20.8722.031; Tue, 27 May 2025
+ 09:28:53 +0000
+From: Shadaab Rahemtulla <s.rahemtulla@ed.ac.uk>
+To: "uoe-bame@mlist.is.ed.ac.uk" <uoe-bame@mlist.is.ed.ac.uk>
+Thread-Topic: This Thursday: "Everything I Learned, I Learned in a Chinese
+ Restaurant", with Curtis Chin
+Thread-Index: AQHbzunC7jLpfOFhUkKX7YIKVWc/eQ==
+Date: Tue, 27 May 2025 09:28:53 +0000
+Message-ID: <DB7PR05MB48117A606186088D2D638270A964A@DB7PR05MB4811.eurprd05.prod.outlook.com>
+References: <VI1PR05MB6592D4490A2FBD56A11EEB20D096A@VI1PR05MB6592.eurprd05.prod.outlook.com>
+In-Reply-To: <VI1PR05MB6592D4490A2FBD56A11EEB20D096A@VI1PR05MB6592.eurprd05.prod.outlook.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=ed.ac.uk;
+x-ms-traffictypediagnostic: DB7PR05MB4811:EE_|DB5PR05MB10764:EE_|AMS1EPF0000004B:EE_|AS1PR05MB9673:EE_|AS8PR05MB10777:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1f516bb-610e-4889-55f5-08dd9d01e7a7
+X-MS-Exchange-AtpMessageProperties: SA|SL
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;ARA:13230040|1800799024|366016|376014|31052699007|39142699007|38070700018|8096899003|13003099007;
+X-Microsoft-Antispam-Message-Info-Original: =?us-ascii?Q?wTUqEWhCngADBPIRv6IPcg5NmVaF5QsUrlRaSyy9gFXvdPEjuxbh2gPHDre3?=
+ =?us-ascii?Q?7OoAIXBnTgiFncyHdcI2TyZhPBZefZgG090eyIDBKu4cnn8jP82JJOQ372Q/?=
+ =?us-ascii?Q?uxg7rVEH2khth1K6rGas1e7ge9JeWX2Dhrh4PO2S16S0KEGeaEpgZSJ1vJcL?=
+ =?us-ascii?Q?eqRqOARzp5u8hQGs2eJDbbIxYnkPZgFbftzQqtHCUGVvfL6Qvisl8XjKBala?=
+ =?us-ascii?Q?9mr0yDapVBd42zS7Onj81BLy/qnD+0IZlsPNUR+AAh4gTrd97GdmdMgUgppR?=
+ =?us-ascii?Q?GY8BTI4nRqFl55rN1r9Yhs5TTBzuRhcM/VSi2eqnYsiZDpu6eSErS5oB2pNE?=
+ =?us-ascii?Q?XONGYGPIpsIjRie48kLC8geIqutRHiURwUnhNLJ2kUBHCrtQuv/u4t7A8H0c?=
+ =?us-ascii?Q?hbeXfXTAMzd/juQ1zGK3jJkOyl6p9ksk61UACWLG9/p572ifddpc0oLQJ0dJ?=
+ =?us-ascii?Q?NuGPzTNIIkZ353Z0Eq4KlUBDcoRekVLJhUJyFMMxZZEhS4ARaKP09KfcBi/h?=
+ =?us-ascii?Q?HWL9+6ieWDDqI/z+VkpXI2vdwG9CDi1Ww4qBSXTDwgj6QMc9CJJLNizQjkn7?=
+ =?us-ascii?Q?BszfoGxUD8d2Nz1bzehnvv4C8CbNXaNS5kCI3XZIGz93PNAKYudRzeAtO2vV?=
+ =?us-ascii?Q?q/Q2wt/53dNhrTbBySwNQ+kFddiD9q+HDABIKqbvRTxWkIfASfgAinYdAYXv?=
+ =?us-ascii?Q?GIULgXK6sz8ixiUye71TP0I83/NtdpnDXB51moFuf2OOFqw1i2UCQAFCh4w+?=
+ =?us-ascii?Q?8vBIQ9ZfxvdQymUrniVMJQ4rkQ+Z28ISz95gaxfGpgIPH5lLojtQW6NUC2OL?=
+ =?us-ascii?Q?4o8iu2e4LZPJG3VUCPwo7hvqgXIIzk7TaBUXyzixS9m/Fe3C4jYGVuVOC/gi?=
+ =?us-ascii?Q?H4QmAU5UKsNpO3+CgNtGjtetkSHiH/UpRkTnSIlmvVNDtJyl0onabnezr/sG?=
+ =?us-ascii?Q?PTU6RyQZk7Ulb/MC3CbdNQwW+QVMd0uqcZJRco69r7+rbOwuoRcGcpMmmUG/?=
+ =?us-ascii?Q?qaxaXDlSwzMXUn5Oql9cA3PMrq3mR6BCDUJEUTxSEuz5Tu1l3dG8i9GUZ54h?=
+ =?us-ascii?Q?bHpZ0fooSiUV3+kOFXlaLFDuGqrmlRp3fYsQo9zc5rC8oBk2BFWSz776w6AF?=
+ =?us-ascii?Q?5zIxKEPXGCRfy/l7e8blLDoZ8mOoeMhnJxvsV7OzJlxQsycbxAtkpo+EN3WN?=
+ =?us-ascii?Q?sYBA8tx7itccI+lzLR7Zgr9a0DQK6z7A8pkENJyAZ7O3juInkc72pL4MSj89?=
+ =?us-ascii?Q?slQf9wo/sSiRGf6k58N2CWRL92Oo288PXcS82m7noXMSx8yNCary0C66HgdX?=
+ =?us-ascii?Q?xgEmBKeSkYSXmKD5RfSLmDi2uOdmYApGiWA5MZnKbLcHs0QD/Hpj93fsz2XJ?=
+ =?us-ascii?Q?A0P1wN72ujkql1rux6vvo4cNaCm8pn2jN4KU17sCzR69YOEv/+PXjNtG+cRu?=
+ =?us-ascii?Q?uS0MuyvwNlUaA1Sn7CmeHIJm3Ial5YIn?=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR05MB4811.eurprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(31052699007)(39142699007)(38070700018)(8096899003)(13003099007);DIR:OUT;SFP:1102;
+Content-Type: multipart/alternative;
+	boundary="_000_DB7PR05MB48117A606186088D2D638270A964ADB7PR05MB4811eurp_"
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR05MB10764
+X-Edinburgh-Scanned: at seine.is.ed.ac.uk
+X-Validation-by: s.rahemtulla@ed.ac.uk
+Subject: [UoE-BAME] This Thursday: "Everything I Learned, I Learned in a
+ Chinese Restaurant", with Curtis Chin
+Reply-To: Shadaab Rahemtulla <s.rahemtulla@ed.ac.uk>
+X-Loop: uoe-bame@mlist.is.ed.ac.uk
+X-Sequence: 255
+Errors-To: uoe-bame-owner@mlist.is.ed.ac.uk
+Precedence: bulk
+Sender: <uoe-bame-request@mlist.is.ed.ac.uk>
+X-no-archive: yes
+List-Id: <uoe-bame.mlist.is.ed.ac.uk>
+List-Help: <https://mlist.is.ed.ac.uk/lists/help>, <mailto:sympa@mlist.is.ed.ac.uk?subject=HELP>
+List-Subscribe: <https://mlist.is.ed.ac.uk/lists/subscribe/uoe-bame>, <mailto:sympa@mlist.is.ed.ac.uk?subject=SUB%20uoe-bame>
+List-Unsubscribe: <https://mlist.is.ed.ac.uk/lists/signoff/uoe-bame>, <mailto:sympa@mlist.is.ed.ac.uk?subject=SIG%20uoe-bame>
+List-Post: <mailto:uoe-bame@mlist.is.ed.ac.uk>
+List-Owner: <mailto:uoe-bame-request@mlist.is.ed.ac.uk>
+List-Archive: <https://mlist.is.ed.ac.uk/lists/arc/uoe-bame>
+Archived-At: <https://mlist.is.ed.ac.uk/lists/msg/uoe-bame/2025-05/JBQXxpnC9eUnttaDKd81bg>
+Return-Path: uoe-bame-owner@mlist.is.ed.ac.uk
+X-OrganizationHeadersPreserved: hbdat4.is.ed.ac.uk
+X-MS-Exchange-Organization-ExpirationStartTime: 27 May 2025 09:36:06.3509
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: a1f516bb-610e-4889-55f5-08dd9d01e7a7
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-MS-Exchange-SkipListedInternetSender: ip=[104.47.11.112];domain=EUR02-DB5-obe.outbound.protection.outlook.com
+X-MS-Exchange-ExternalOriginalInternetSender: ip=[104.47.11.112];domain=EUR02-DB5-obe.outbound.protection.outlook.com
+X-CrossPremisesHeadersPromoted: AMS1EPF0000004B.eurprd04.prod.outlook.com
+X-CrossPremisesHeadersFiltered: AMS1EPF0000004B.eurprd04.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: AMS1EPF0000004B.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Exchange-Organization-AuthSource: hbdat4.is.ed.ac.uk
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-OriginatorOrg: uoe.onmicrosoft.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 1a4e632e-417a-4b02-9343-08dd9d00e572
+X-MS-Exchange-Organization-SCL: -1
+X-MS-Exchange-Organization-BypassClutter: true
+X-Microsoft-Antispam: BCL:0;ARA:13230040|31052699007|39142699007|82310400026|35042699022|4022899009|8096899003|13003099007;
+X-Forefront-Antispam-Report: CIP:129.215.235.40;CTRY:IE;LANG:en;SCL:-1;SRV:;IPV:NLI;SFV:NSPM;H:EUR02-DB5-obe.outbound.protection.outlook.com;PTR:mail-db5eur02lp2112.outbound.protection.outlook.com;CAT:NONE;SFS:(13230040)(31052699007)(39142699007)(82310400026)(35042699022)(4022899009)(8096899003)(13003099007);DIR:INB;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2025 09:36:06.2935
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1f516bb-610e-4889-55f5-08dd9d01e7a7
+X-MS-Exchange-CrossTenant-Id: 2e9f06b0-1669-4589-8789-10a06934dc61
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=2e9f06b0-1669-4589-8789-10a06934dc61;Ip=[129.215.235.40];Helo=[exseed.ed.ac.uk]
+X-MS-Exchange-CrossTenant-AuthSource: hbdat4.is.ed.ac.uk
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR05MB9673
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.7511296
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.8746.028
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910005)(944506478)(944626604)(920097)(930097)(140003)(1420198);
+X-Microsoft-Antispam-Message-Info:
+	=?Windows-1252?Q?EJ6hCqZ2zg6PYUTlbVNZEeFgH/lIt6Tou144STtFfLg/f+JLuJkozlj7?=
+ =?Windows-1252?Q?uRi4CMveoOzcIKuZql7mr/6QcBjDJgNBzTkQkFOcCpYmQd7C/lWfFL9t?=
+ =?Windows-1252?Q?7nwkdcokkAvGWbYg85tOPMBsMg/O1D/UvJ9AMhubwWwoXa6BdXOmKisR?=
+ =?Windows-1252?Q?6vqy/J1kwtYr1d81JuVpwlL40+1AS2cJBrMWZKhVxbl9kXirIyWc4jUy?=
+ =?Windows-1252?Q?OMrJ8qEoqQUEof+GWREQFcw/WBxhJXdkfFTqxCXHtzs3ucC2BpKFsPbD?=
+ =?Windows-1252?Q?Arg2APzdb+IxHeX8oi8BpverPhRyQbsno372Tu8imcNHaDIYtPZ4JC3Z?=
+ =?Windows-1252?Q?rlnjT054vnpkHhk/DZO3forOB1kDGL6BgKtYrPLPc8GdnDjRTxyhI4RM?=
+ =?Windows-1252?Q?zipQ3iA1HHEjaSFeNz/OvztnYnKBowXTAtUh6Sjn/ssLADZjU7vGopvH?=
+ =?Windows-1252?Q?qlRTsTbpXrPkaGjMXvUS/XaHHfLVwBVmZy8VMCnRlM+H7MzW97wv0Ms2?=
+ =?Windows-1252?Q?8yYZp3oh2ONfn2RwwGcO9/glmJFYO5IW5JyLJki10BPxnEHBgE+ct4Xn?=
+ =?Windows-1252?Q?44Onlt99fvo6r8ARKmDx6fZUbHo6r9/u05NUIu3rhBN9H31Z46a0UlwB?=
+ =?Windows-1252?Q?X6o5+06DbQxN9OxBFSg4YUJ6Lumbbnhb2BIaYX02V2EZ3OiYTh41yBL1?=
+ =?Windows-1252?Q?VGFms7ItqLQBsFTYlLKRteegqTU5eUNbLl+VA4yZJ/j9f993qOido29C?=
+ =?Windows-1252?Q?+64qwmrGEvyPQ9vlakmut5SbJM0By1/g808E6BFZ4S2Ro4fl/Bf8TCiY?=
+ =?Windows-1252?Q?MIAKWY5U+gtpIiWRLgKwrcsKrLyKbNHrFw5ZylAOoSFieLnw70qjDp+a?=
+ =?Windows-1252?Q?7SNBU5hQ7MLh5XBK35xezFFiNErQMn6EXnq5nst0WNNw/HYK0PCWp9iM?=
+ =?Windows-1252?Q?sqaFm5Or8W8BCrPFLtQOE8Ffm1UBkIpjxzIHqXmftLeSNu39oUFAmrLp?=
+ =?Windows-1252?Q?zFyE5t1jYx/eV8brk1SE8b3t4vLHLQKB1hfd4KX6D7ksYDnoXv7MzUK1?=
+ =?Windows-1252?Q?RchCWBrFFrnfPh+8Dw4w16a5eOHZFwAog2yGW8OzHXK613vakNgjmrKZ?=
+ =?Windows-1252?Q?EQLp6qI6H2PNaUGNgrWg84aYWN8WScISuKNAbBZeb0KaQhpLdvMSni/A?=
+ =?Windows-1252?Q?FyytJNH6T8pl9O9n1+fiES6HOfwhQq5wI9Kw71u1NMPgrO5QF9QiRobF?=
+ =?Windows-1252?Q?fIhwuf9O2nh0NWzhYa8oZb7jvfXqyhfYif0NurvIkETPp9YAS0yo+yo2?=
+ =?Windows-1252?Q?DDpEzriDyLaSYmQEVa6Nk+UjcSV7uy5LyEzyl7jeyy9vnfbT6PhRUXv9?=
+ =?Windows-1252?Q?uutyq6LalZETBaP6N9K8nIvXGyuOq5IwX3BejWYQNWU1J/ce18m+1mng?=
+ =?Windows-1252?Q?gj8c/aQOIr5fYhUn7vQtptz2et+vIoeBdOsKWt88kCmKJos49gRYrhBM?=
+ =?Windows-1252?Q?rMc5FDjWr+S4SlGKuJbUFSje3yYbghXMsJiSocMyjZQ1utKTYK3RZrM0?=
+ =?Windows-1252?Q?a/o/8X3jTdYUQwxm/35oYCWkDugl1pXU8/pOcC+ypPAtq/Z24t/A+DlE?=
+ =?Windows-1252?Q?ayY=3D?=
+MIME-Version: 1.0
+
+--_000_DB7PR05MB48117A606186088D2D638270A964ADB7PR05MB4811eurp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+Dear all,
+
+A friendly reminder about this exciting event this Thursday, and which the =
+Staff BAME Network is co-sponsoring with the SPS EDI Committee, Queer.Ed, a=
+nd the Staff Pride Network. Please find the full details and registration l=
+ink below.
+
+Hope to see you on Thursday!
+
+Best wishes,
+Shadaab
+
+Dr Shadaab Rahemtulla
+Senior Lecturer in Islamic Studies
+Chair, Staff BAME Network
+School of Divinity
+University of Edinburgh
+
+________________________________
+
+You're cordially invited to attend the following event:
+
+Everything I Learned, I Learned in a Chinese Restaurant, with Curtis Chin<h=
+ttps://www.eventbrite.co.uk/e/everything-i-learned-i-learned-in-a-chinese-r=
+estaurant-with-curtis-chin-tickets-1302218633989?aff=3Doddtdtcreator>
+Thursday 29 May, 3:00pm-4:30pm (LG .09 40 George Square)
+Join us for a collaborate event with the School of Social and Political Sci=
+ence EDI Committee, Staff Pride Network, Staff BAME Network, and Queer.ED =
+=97 a talk by award-winning author and filmmaker, Curtis Chin. Chin=92s mem=
+oir, Everything I Learned, I Learned in a Chinese Restaurant, is about grow=
+ing up as a Chinese American kid in 1980=92s Detroit, coming out as gay in =
+a working-class immigrant community, and finding his way as a first-generat=
+ion college student at the University of Michigan. The book was selected by=
+ the National Lesbian and Gay Journalist Association for Excellence in Book=
+ Writing and has earned many other awards and accolades. In addition to the=
+ book, Chin is working on a docuseries about the history of Chinese restaur=
+ants in the United States, a project that builds on the memoir, which has a=
+ chapter structure organized around the menu of his parents=92 Chinese rest=
+aurant.
+This event is open to the public. Refreshments will be provided, followed b=
+y book<https://lighthousebookshop.com/book/9780316507752>-signing of the au=
+thor. Click here to register<https://www.eventbrite.co.uk/e/everything-i-le=
+arned-i-learned-in-a-chinese-restaurant-with-curtis-chin-tickets-1302218633=
+989?aff=3Doddtdtcreator>.<https://www.eventbrite.co.uk/e/everything-i-learn=
+ed-i-learned-in-a-chinese-restaurant-with-curtis-chin-tickets-1302218633989=
+?aff=3Doddtdtcreator>
+
+The University of Edinburgh is a charitable body, registered in Scotland, w=
+ith registration number SC005336. Is e buidheann carthannais a th=92 ann an=
+ Oilthigh Dh=F9n =C8ideann, cl=E0raichte an Alba, =E0ireamh cl=E0raidh SC00=
+5336.
+--
+
+You received this message because you are subscribed to the UoE Staff BAME =
+Network mailing list (https://mlist.is.ed.ac.uk/lists/info/uoe-bame). To un=
+subscribe from this group and stop receiving emails from it, please visit h=
+ttps://mlist.is.ed.ac.uk/lists/signoff/uoe-bame
+
+--_000_DB7PR05MB48117A606186088D2D638270A964ADB7PR05MB4811eurp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252"><style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;marg=
+in-bottom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Dear all,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+A friendly reminder about this exciting event this Thursday, and which the =
+Staff BAME Network is co-sponsoring with the SPS EDI Committee, Queer.Ed, a=
+nd the Staff Pride Network. Please find the full details and registration l=
+ink below.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Hope to see you on Thursday!</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Best wishes,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Shadaab</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature" class=3D"elementToProof">
+<div style=3D"background-color: rgb(255, 255, 255); font-family: Aptos, Apt=
+os_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-=
+size: 12pt; color: rgb(0, 0, 0);">
+Dr&nbsp;Shadaab Rahemtulla</div>
+<div style=3D"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos=
+_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb=
+(0, 0, 0);">
+Senior Lecturer in Islamic Studies</div>
+<div style=3D"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos=
+_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb=
+(0, 0, 0);">
+Chair, Staff BAME Network</div>
+<div style=3D"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos=
+_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb=
+(0, 0, 0);">
+School of Divinity</div>
+<div style=3D"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos=
+_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb=
+(0, 0, 0);">
+University of Edinburgh</div>
+<div style=3D"direction: ltr; font-family: Calibri, Arial, Helvetica, sans-=
+serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display: inline-block; width: 98%;">
+<div dir=3D"ltr" id=3D"divRplyFwdMsg">
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+</div>
+<div style=3D"direction: ltr; text-align: left; text-indent: 0px; margin: 0=
+px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, H=
+elvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+You're cordially invited to attend the following event:</div>
+<div style=3D"direction: ltr; text-align: left; text-indent: 0px; margin: 0=
+px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, H=
+elvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"direction: ltr; text-align: left; te=
+xt-indent: 0px; margin: 0px; font-family: &quot;Segoe UI&quot;, &quot;Segoe=
+ UI Web (West European)&quot;, -apple-system, &quot;system-ui&quot;, Roboto=
+, &quot;Helvetica Neue&quot;, sans-serif; font-size: 12pt; color: rgb(0, 0,=
+ 0);">
+<a href=3D"https://eur02.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Fwww.eventbrite.co.uk%2Fe%2Feverything-i-learned-i-learned-in-a-chinese-=
+restaurant-with-curtis-chin-tickets-1302218633989%3Faff%3Doddtdtcreator&amp=
+;data=3D05%7C02%7C%7Ca1f516bb610e488955f508dd9d01e7a7%7C2e9f06b016694589878=
+910a06934dc61%7C0%7C0%7C638839353683934247%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0=
+eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjo=
+yfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=3DhYrU4a1B8b3C26Pj8Q8lZW0hmO9FfESYbPI96Q84=
+n94%3D&amp;reserved=3D0" originalsrc=3D"https://www.eventbrite.co.uk/e/ever=
+ything-i-learned-i-learned-in-a-chinese-restaurant-with-curtis-chin-tickets=
+-1302218633989?aff=3Doddtdtcreator" id=3D"LPlnk524188" title=3D"https://www=
+.eventbrite.co.uk/e/everything-i-learned-i-learned-in-a-chinese-restaurant-=
+with-curtis-chin-tickets-1302218633989?aff=3Doddtdtcreator">Everything
+ I Learned, I Learned in a Chinese Restaurant, with Curtis Chin</a></div>
+<div style=3D"direction: ltr; text-align: left; text-indent: 0px; margin: 1=
+em 0px; font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibr=
+i, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Thursday 29 May, 3:00pm-4:30pm (LG .09 40 George Square)</b></div>
+<div class=3D"elementToProof" style=3D"direction: ltr; text-align: left; te=
+xt-indent: 0px; margin: 1em 0px; font-family: Aptos, Aptos_EmbeddedFont, Ap=
+tos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; color: =
+rgb(0, 0, 0);">
+Join us for a collaborate event with the School of Social and Political Sci=
+ence EDI Committee, Staff Pride Network, Staff BAME Network, and Queer.ED =
+=97 a talk by award-winning author and filmmaker, Curtis Chin. Chin=92s mem=
+oir,
+<i>Everything I Learned, I Learned in a Chinese Restaurant</i>, is about gr=
+owing up as a Chinese American kid in 1980=92s Detroit, coming out as gay i=
+n a working-class immigrant community, and finding his way as a first-gener=
+ation college student at the University
+ of Michigan. The book was selected by the National Lesbian and Gay Journal=
+ist Association for Excellence in Book Writing and has earned many other aw=
+ards and accolades. In addition to the book, Chin&nbsp;is working on a docu=
+series about the history of Chinese restaurants
+ in the United States, a project that builds on the memoir, which has a cha=
+pter structure organized around the menu of his parents=92 Chinese restaura=
+nt.&nbsp;</div>
+<div class=3D"elementToProof" style=3D"direction: ltr; text-align: left; te=
+xt-indent: 0px; margin: 1em 0px; font-size: 12pt;">
+<span style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService,=
+ Calibri, Helvetica, sans-serif; color: rgb(0, 0, 0);">This event is open t=
+o the public. Refreshments will be provided, followed by
+<a href=3D"https://eur02.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flighthousebookshop.com%2Fbook%2F9780316507752&amp;data=3D05%7C02%7C%7Ca=
+1f516bb610e488955f508dd9d01e7a7%7C2e9f06b016694589878910a06934dc61%7C0%7C0%=
+7C638839353683968357%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOi=
+IwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C=
+&amp;sdata=3DNdHAE6un06cI%2FZ1SEzANKIJ3cfGvwJHOpRNSArE83fU%3D&amp;reserved=
+=3D0" originalsrc=3D"https://lighthousebookshop.com/book/9780316507752" id=
+=3D"OWA17cf9700-1dee-c96c-bef2-e7aa1e209216" class=3D"x_OWAAutoLink" title=
+=3D"https://lighthousebookshop.com/book/9780316507752" originalsrc=3D"https=
+://lighthousebookshop.com/book/9780316507752" data-auth=3D"NotApplicable" s=
+tyle=3D"margin: 0px;">
+book</a>-signing of the author. </span><span style=3D"font-family: &quot;Se=
+goe UI&quot;, &quot;Segoe UI Web (West European)&quot;, -apple-system, &quo=
+t;system-ui&quot;, Roboto, &quot;Helvetica Neue&quot;, sans-serif; color: r=
+gb(30, 83, 163);"><a href=3D"https://eur02.safelinks.protection.outlook.com=
+/?url=3Dhttps%3A%2F%2Fwww.eventbrite.co.uk%2Fe%2Feverything-i-learned-i-lea=
+rned-in-a-chinese-restaurant-with-curtis-chin-tickets-1302218633989%3Faff%3=
+Doddtdtcreator&amp;data=3D05%7C02%7C%7Ca1f516bb610e488955f508dd9d01e7a7%7C2=
+e9f06b016694589878910a06934dc61%7C0%7C0%7C638839353683984822%7CUnknown%7CTW=
+FpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOI=
+joiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=3Dv%2FJvwpnBvEgMOAqfQKIP=
+ClSGiRghaaQow1bXJHECT8w%3D&amp;reserved=3D0" originalsrc=3D"https://www.eve=
+ntbrite.co.uk/e/everything-i-learned-i-learned-in-a-chinese-restaurant-with=
+-curtis-chin-tickets-1302218633989?aff=3Doddtdtcreator" id=3D"LPlnk650685" =
+title=3D"https://www.eventbrite.co.uk/e/everything-i-learned-i-learned-in-a=
+-chinese-restaurant-with-curtis-chin-tickets-1302218633989?aff=3Doddtdtcrea=
+tor">Click
+ here to register</a></span><span style=3D"font-family: Aptos, Aptos_Embedd=
+edFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; color: rgb(0, =
+0, 0);"><a href=3D"https://eur02.safelinks.protection.outlook.com/?url=3Dht=
+tps%3A%2F%2Fwww.eventbrite.co.uk%2Fe%2Feverything-i-learned-i-learned-in-a-=
+chinese-restaurant-with-curtis-chin-tickets-1302218633989%3Faff%3Doddtdtcre=
+ator&amp;data=3D05%7C02%7C%7Ca1f516bb610e488955f508dd9d01e7a7%7C2e9f06b0166=
+94589878910a06934dc61%7C0%7C0%7C638839353684003159%7CUnknown%7CTWFpbGZsb3d8=
+eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCI=
+sIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=3DBzs0LaFXsMZo8lDtHUTid53N%2Fpkp7q=
+dSUI8adlQ2Q0Q%3D&amp;reserved=3D0" originalsrc=3D"https://www.eventbrite.co=
+.uk/e/everything-i-learned-i-learned-in-a-chinese-restaurant-with-curtis-ch=
+in-tickets-1302218633989?aff=3Doddtdtcreator" title=3D"https://www.eventbri=
+te.co.uk/e/everything-i-learned-i-learned-in-a-chinese-restaurant-with-curt=
+is-chin-tickets-1302218633989?aff=3Doddtdtcreator">.</a></span></div>
+<div class=3D"elementToProof" style=3D"direction: ltr; font-family: Aptos, =
+Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; fo=
+nt-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+The University of Edinburgh is a charitable body, registered in Scotland, w=
+ith registration number SC005336. Is e buidheann carthannais a th=92 ann an=
+ Oilthigh Dh=F9n =C8ideann, cl=E0raichte an Alba, =E0ireamh cl=E0raidh SC00=
+5336.
+<div style=3D"background: transparent; border: none; clear: both; display: =
+block; float: none; position: static">--<br><br>You received this message b=
+ecause you are subscribed to the UoE Staff BAME Network mailing list (https=
+://mlist.is.ed.ac.uk/lists/info/uoe-bame). To unsubscribe from this group a=
+nd stop receiving emails from it, please visit https://mlist.is.ed.ac.uk/li=
+sts/signoff/uoe-bame</div></body>
+</html>
+
+--_000_DB7PR05MB48117A606186088D2D638270A964ADB7PR05MB4811eurp_--

@@ -1,0 +1,6 @@
+{
+  "name": "string",
+  "age": "int",
+  "detail": "long string",
+  "type": ["Student", "Teacher", "Admin"]
+}

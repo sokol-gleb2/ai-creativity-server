@@ -1,0 +1,14 @@
+{
+  "people": {
+    "enabled": true,
+    "fields": ["name", "email"]
+  },
+  "groups": {
+    "enabled": true,
+    "fields": ["group_name"]
+  },
+  "events": {
+    "enabled": true,
+    "fields": ["title", "date", "location"]
+  }
+}

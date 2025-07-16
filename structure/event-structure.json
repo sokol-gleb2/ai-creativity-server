@@ -1,0 +1,7 @@
+{
+  "name": "string",
+  "date": "string",
+  "location": "string",
+  "detail": "long string",
+  "type": ["Conference", "Meetup", "Workshop"]
+}

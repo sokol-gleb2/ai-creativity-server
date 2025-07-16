@@ -1,0 +1,29 @@
+{
+  "name": "generative-ai-server",
+  "version": "1.0.0",
+  "description": "Server for Generative AI website that parses emails and generates pages.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js ",
+    "dev": "nodemon index.js "
+  },
+  "dependencies": {
+    "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "imap": "^0.8.19",
+    "knex": "^3.1.0",
+    "mailparser": "^3.7.4",
+    "multer": "^2.0.0",
+    "pg": "^8.16.3",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

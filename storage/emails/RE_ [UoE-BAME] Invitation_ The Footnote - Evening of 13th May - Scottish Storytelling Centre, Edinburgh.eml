@@ -1,0 +1,481 @@
+Received: from DBAPR05MB7525.eurprd05.prod.outlook.com (2603:10a6:10:1a1::9)
+ by AS8PR05MB10777.eurprd05.prod.outlook.com with HTTPS; Thu, 8 May 2025
+ 12:22:13 +0000
+Received: from AM8P189CA0005.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:218::10)
+ by DBAPR05MB7525.eurprd05.prod.outlook.com (2603:10a6:10:1a1::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.40; Thu, 8 May
+ 2025 12:22:12 +0000
+Received: from AMS0EPF00000191.eurprd05.prod.outlook.com
+ (2603:10a6:20b:218:cafe::ab) by AM8P189CA0005.outlook.office365.com
+ (2603:10a6:20b:218::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8722.21 via Frontend Transport; Thu,
+ 8 May 2025 12:22:12 +0000
+Authentication-Results: spf=softfail (sender IP is 129.215.235.37)
+ smtp.mailfrom=mlist.is.ed.ac.uk; dkim=fail (signature did not verify)
+ header.d=ed.ac.uk;dmarc=fail action=none header.from=ed.ac.uk;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ mlist.is.ed.ac.uk discourages use of 129.215.235.37 as permitted sender)
+Received: from exseed.ed.ac.uk (129.215.235.37) by
+ AMS0EPF00000191.mail.protection.outlook.com (10.167.16.216) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8722.18 via Frontend Transport; Thu, 8 May 2025 12:22:12 +0000
+Received: from hbdkb4.is.ed.ac.uk (129.215.235.39) by hbdkb3.is.ed.ac.uk
+ (129.215.235.37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 8 May
+ 2025 13:21:43 +0100
+Received: from seine.is.ed.ac.uk (129.215.17.202) by hbdkb4.is.ed.ac.uk
+ (129.215.235.39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10 via Frontend
+ Transport; Thu, 8 May 2025 13:21:43 +0100
+Received: from sympa1.is.ed.ac.uk (sympa1.is.ed.ac.uk [129.215.17.18])
+	by seine.is.ed.ac.uk (8.15.2/8.15.2) with ESMTPS id 548CLd9u588861
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
+	for <s1713033@sms.ed.ac.uk>; Thu, 8 May 2025 13:21:39 +0100
+Received: by sympa1.is.ed.ac.uk (Postfix, from userid 988)
+	id 695B24010FF9; Thu,  8 May 2025 13:21:35 +0100 (BST)
+X-Original-To: uoe-bame@mlist.is.ed.ac.uk
+Delivered-To: uoe-bame@mlist.is.ed.ac.uk
+Received: from loire.is.ed.ac.uk (loire.is.ed.ac.uk [129.215.16.10])
+	by sympa1.is.ed.ac.uk (Postfix) with ESMTPS id 41C944010298
+	for <uoe-bame@mlist.is.ed.ac.uk>; Thu,  8 May 2025 11:54:58 +0100 (BST)
+Received: from exseed.ed.ac.uk (hbdkb4.is.ed.ac.uk [129.215.235.39])
+	by loire.is.ed.ac.uk (8.15.2/8.15.2) with ESMTPS id 548Arpcb1518147
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <uoe-bame@mlist.is.ed.ac.uk>; Thu, 8 May 2025 11:54:54 +0100
+Received: from hbdkb3.is.ed.ac.uk (129.215.235.37) by hbdkb4.is.ed.ac.uk
+ (129.215.235.39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 8 May
+ 2025 11:53:58 +0100
+Received: from OSPPR02CU001.outbound.protection.outlook.com (40.93.81.77) by
+ hbdkb3.is.ed.ac.uk (129.215.235.37) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10 via Frontend Transport; Thu, 8 May 2025 11:53:58 +0100
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QzZdcLstm37i+FzgE6eudjKs3yaM5/ZvAwB9BbUyCSc6SZpyrW5o7T4I/6k11ZR38SjzNzOvt1+Yk74AV5Fnot1d1Yv/xJA+A+yTyW18C2/Fn01VIs2TczSpnmdF21nPiF+Fs4oQltZXrswJU61jg7EFxY0IleryWpvx8opELdrjV47oBuzJtWavw9bemAouCXeybiWe+bmvwqZWjWuL9ir3hNPRpzcSVQB3aImdfXUA+ADP0lDZBF5kcLNJWrrkAeaKTUHghgAEikxSjFSOj1Mx+ZhZekZ81wPmHmAcXkMSfwdNclOYOFU92Ux6EVNozrmZaS3raw5WHlXWmcVyaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0W7K2T9IBE2QMG3mVJ+skZnUPMRczrt7dPaaWx+WltQ=;
+ b=KKsQCnutuvRfKcSIaZKKupeT0VYljgosBKmvRGsoUlMoJU1KkK/77x2z4SSuIdIWi4t4+hPyTvnPX7JltEZQc626NTHyQUF6qxzDzEj+Zm2nY8Hpn8D/cG8chP5P/mNw5EhCFnz+30/EmJz+wHjpbniIu6XS5SQEOqda3WHbO3lBfYAqYGfSRm/YuB/8zEriXOl9JJBi/OpZ7dIbQ3pz/Cs1wGj1VYpTVfRL2y0UzS+ABfnJS/7OsBXItD0dFiPdX8HXslEhMEW3AYxH0VTiygjfFBqv8sEj0pACBH2kjrCQCptA+vbhq2sOQDwe1bXrq8sYpOc+T1wJDWRGnalKOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ed.ac.uk; dmarc=pass action=none header.from=ed.ac.uk;
+ dkim=pass header.d=ed.ac.uk; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ed.ac.uk; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0W7K2T9IBE2QMG3mVJ+skZnUPMRczrt7dPaaWx+WltQ=;
+ b=BzRW7e93DbB1V4lQPxEwtSXKRtIR7FQRDo7pGDa+rmv4/Ouh9ldRCo53ZfQ0EAz3JlOg5iRH+gvcHwfCyS1uYivI15Vw3njBay5UelwC4px3qt8TeY7ifR3kbOawmUKa9754DfdVSdyoSyJdQk8JHertp/22T1i3+nq4Iu7vBF/49E8xHfMvcC7XkfazIbzbPqvg9BBWuDrcLQA/a8AW5IetvIUlTm8GcIVJyKBtxPVKw8vil2yjZ66kLuZajYnLMvxYvufNjidGmpUZKNX/U+IlkrmiJAvxUOLwK8NepmId8wnHMQO9cpwZdB8XMWANd1sbNauoE8Q+jlpcgzMbOw==
+Received: from DB9PR05MB8121.eurprd05.prod.outlook.com (2603:10a6:10:251::21)
+ by DUZPR05MB10878.eurprd05.prod.outlook.com (2603:10a6:10:4e3::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.24; Thu, 8 May
+ 2025 10:53:57 +0000
+Received: from DB9PR05MB8121.eurprd05.prod.outlook.com
+ ([fe80::edf5:397e:dff5:4d7]) by DB9PR05MB8121.eurprd05.prod.outlook.com
+ ([fe80::edf5:397e:dff5:4d7%4]) with mapi id 15.20.8699.026; Thu, 8 May 2025
+ 10:53:57 +0000
+From: Samuel Mwaura <Samuel.Mwaura@ed.ac.uk>
+To: "uoe-bame@mlist.is.ed.ac.uk" <uoe-bame@mlist.is.ed.ac.uk>
+Thread-Topic: Invitation: The Footnote - Evening of 13th May - Scottish
+ Storytelling Centre, Edinburgh
+Thread-Index: AQHbv2AqtFDUo1XRy0aXYGOE3jlIr7PIjaoAgAACc1A=
+Date: Thu, 8 May 2025 10:53:57 +0000
+Message-ID: <DB9PR05MB8121585B9EA7AC7B0EE4A790D78BA@DB9PR05MB8121.eurprd05.prod.outlook.com>
+References: <CANukxkpzC-7O4eyB8ovYZ7tqYM0ZHPvaudF1qN7DeTzYfzvzcg@mail.gmail.com>
+ <LO0P123MB7311D237BE9D008DB1C66B62DC822@LO0P123MB7311.GBRP123.PROD.OUTLOOK.COM>
+ <CANukxkrbQWghmgZBdwcFwP4H8X_Je6JUDSDp4ijxY2rDm1cwvQ@mail.gmail.com>
+ <CAAeucc9f87hbNVS3HRdvra6vx2W8Cq7rGdGOANHZM2Yz=dhAOw@mail.gmail.com>
+ <CANukxkpfQXht_qmQ-Bi0a+YFq=KnQXSJYfHh21umLS2mDJpt1A@mail.gmail.com>
+ <CANukxkrdKS4DMGHyyvMtDC2aAkZSHk567AT-Fq=Rx1qOfLEN7g@mail.gmail.com>
+ <CANukxkpVj240Pnq2WrQY7oVNYkNtsBe7YoqRqXEPZOFgofYatw@mail.gmail.com>
+ <CANukxkqgGA7M2Whwt4HEW-VUWO0eogJfEnbRCUwwqxAhaBFi2w@mail.gmail.com>
+ <CANukxkrPXJ4cKHSnSNoPCdHPc+aXJDQ9bO4Lm-sRtjG4BXfuvw@mail.gmail.com>
+ <CANukxkp+GVAjk+hRv7OXunxDWTOTOcYe44nekVY_VnRQru9j4w@mail.gmail.com>
+ <CANukxkp5ugxL6H9Os1tiJz_PduHDuV2h4eQ=10tQoSS+hAhqow@mail.gmail.com>
+ <CANukxkqSKYW-8rMJyFs=4nDANCukEnqne4R+M3gqjcTC3WEwvw@mail.gmail.com>
+ <CANukxkrKfmQJBq2C+eZnihJQPheWd4_H+VexqaJbhGBmiN0N9g@mail.gmail.com>
+ <DB9PR05MB81213A1CC1F168D7AB8EEDC0D78BA@DB9PR05MB8121.eurprd05.prod.outlook.com>
+In-Reply-To: <DB9PR05MB81213A1CC1F168D7AB8EEDC0D78BA@DB9PR05MB8121.eurprd05.prod.outlook.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=ed.ac.uk;
+x-ms-traffictypediagnostic: DB9PR05MB8121:EE_|DUZPR05MB10878:EE_|AMS0EPF00000191:EE_|DBAPR05MB7525:EE_|AS8PR05MB10777:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d8f126b-b651-4789-e360-08dd8e2af5ea
+X-MS-Exchange-AtpMessageProperties: SA|SL
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;ARA:13230040|376014|366016|1800799024|8096899003|38070700018;
+X-Microsoft-Antispam-Message-Info-Original: =?us-ascii?Q?Gae1sA+2n+VkJqyhDp/SKwoS5DADJx3u884PJ9FeENuLSAHkbTr1Ja4ABi4l?=
+ =?us-ascii?Q?YVblZbs/+44gA8BOieEZUJMLppOQQe3KxMlZAK0ro5xqMY8BXcg0OPEJR9va?=
+ =?us-ascii?Q?8FqZwMVPdlbZCtS8abMzo2Z+u8db8BKyGxgVrMKSqpLLTl/hT6tHcD0GQlfb?=
+ =?us-ascii?Q?i1IKjg37DIwfmz5loo6dggoQpK2IAMH5HqWaVCKM90S/1nMlOyxOHL20rO4r?=
+ =?us-ascii?Q?+AuPsC3ZfAgfEsmokWVWOe0TzjpPfrgyhAvVIl0rNFuxchQUITFku00RTs0q?=
+ =?us-ascii?Q?JsJQKPGzAr6A1x0CoESRer7lMqvOThp2oWqU50Okr3tWiIGyBXOayyuoOBfa?=
+ =?us-ascii?Q?/ooL599j/k2wivLhGNUv+yGGwuNfZzl3EHfQr7DYv5gdryF74VWE8gYdiZX9?=
+ =?us-ascii?Q?bhiKLppFYR4X1bRyhrpKDjQGlupO6azcSbv9wLANTDBBfNmRu6qJFfCVRMGC?=
+ =?us-ascii?Q?B+Cf8blvWqlesedHz87KEbf9/SbsSEHX24F/L4g3t8fpoIh/9IMaR1PcQIU3?=
+ =?us-ascii?Q?rgCSoro5iieQ7S0L7RR+QQ3ErJUR3TY0ixbC6mpUyIs8aH9eFLpiCEWnhbxL?=
+ =?us-ascii?Q?2O8UfTLYpIGpK39A1TrQwlqgqGAPQqFaH0v+x4AWhOeWM/lu0yiM/Kb4LCgz?=
+ =?us-ascii?Q?4S0SA6bnR2wtbtJdqGt16Awy4nnp1mB4K/yRaTl2Ar+FQ+fusa7KnAXWqs+z?=
+ =?us-ascii?Q?Ef4fPO4hJKb8rzh/AvsPfmX6i4/zjzQsQ4yFwhGFDjTz6PSDFLRkMnXHNKLu?=
+ =?us-ascii?Q?PXpJpYY/Ubwf1GULuLQbAUuJVM5SjFH0Y7xxKsie6XUjRtVOfy1WigTDJbUa?=
+ =?us-ascii?Q?q8r+knfAp1MnarTx056vlOF/BHJLkxLut0NlZRaaQ44yJg9XAIfAnrGYsk+4?=
+ =?us-ascii?Q?uO50wZBWMZA+KHVmuY6BIljfSR81MCpkpDpjZwXuJIwCy1WsmGT/op6lu6VW?=
+ =?us-ascii?Q?h1b8YCHBv4r3hezyzVSmttNRNwqIzrljoDJCHejlNIKAvXdkFZIqPYO9SnuS?=
+ =?us-ascii?Q?0dQEMabx/c44ut/x9MXKAB7MirVYlEus09T52MKKjTBx+lk4TnF63EJLrTel?=
+ =?us-ascii?Q?NxYuNJUqy/uzjP29TEWUkvxZb+eD2Jtwzwh46k/kwzLbZFgvLNNcaWcU7NpE?=
+ =?us-ascii?Q?DMGRDBG7m84+O/O8o56R4Ul2UIvw5jXOjnqY27sO/7lliK9voeIHEaM9mpNN?=
+ =?us-ascii?Q?UaXy292ZrYzkUwnNtwHgjxJThX/PR+Rm5XhJ4UDn9y9yYsfLeUQnCanI2D4k?=
+ =?us-ascii?Q?jku/xvfbNgpZWqvjHfLXPupO850SNNPEJUuuvmscwI4yg9Txgn3OXlmoBUDi?=
+ =?us-ascii?Q?HumJWDGHr/JtX4TBE6Hk4ijvmHEYXHBW4RJaA4LvEJwHu0Kjz/jbVIzMXmXU?=
+ =?us-ascii?Q?RKmGb6ULjfGK+P05ls3qJVg2sP2Zc8ew+bVPzQhmMrhXyAGP3ZG39z2UXWwF?=
+ =?us-ascii?Q?txK/ylarH38cQiEEJl5zSbdSgxb99uUc?=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR05MB8121.eurprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(8096899003)(38070700018);DIR:OUT;SFP:1102;
+Content-Type: multipart/alternative;
+	boundary="_000_DB9PR05MB8121585B9EA7AC7B0EE4A790D78BADB9PR05MB8121eurp_"
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR05MB10878
+X-Edinburgh-Scanned: at seine.is.ed.ac.uk
+X-Validation-by: lauren.hall-lew@ed.ac.uk
+Subject: RE: [UoE-BAME] Invitation: The Footnote - Evening of 13th May -
+ Scottish Storytelling Centre, Edinburgh
+Reply-To: Samuel Mwaura <Samuel.Mwaura@ed.ac.uk>
+X-Loop: uoe-bame@mlist.is.ed.ac.uk
+X-Sequence: 250
+Errors-To: uoe-bame-owner@mlist.is.ed.ac.uk
+Precedence: bulk
+Sender: <uoe-bame-request@mlist.is.ed.ac.uk>
+X-no-archive: yes
+List-Id: <uoe-bame.mlist.is.ed.ac.uk>
+List-Help: <https://mlist.is.ed.ac.uk/lists/help>, <mailto:sympa@mlist.is.ed.ac.uk?subject=HELP>
+List-Subscribe: <https://mlist.is.ed.ac.uk/lists/subscribe/uoe-bame>, <mailto:sympa@mlist.is.ed.ac.uk?subject=SUB%20uoe-bame>
+List-Unsubscribe: <https://mlist.is.ed.ac.uk/lists/signoff/uoe-bame>, <mailto:sympa@mlist.is.ed.ac.uk?subject=SIG%20uoe-bame>
+List-Post: <mailto:uoe-bame@mlist.is.ed.ac.uk>
+List-Owner: <mailto:uoe-bame-request@mlist.is.ed.ac.uk>
+List-Archive: <https://mlist.is.ed.ac.uk/lists/arc/uoe-bame>
+Archived-At: <https://mlist.is.ed.ac.uk/lists/msg/uoe-bame/2025-05/bR9K-duXUVF5puJvWcFXrg>
+Return-Path: uoe-bame-owner@mlist.is.ed.ac.uk
+X-OrganizationHeadersPreserved: hbdkb3.is.ed.ac.uk
+X-MS-Exchange-Organization-ExpirationStartTime: 08 May 2025 12:22:12.2060
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: 9d8f126b-b651-4789-e360-08dd8e2af5ea
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-MS-Exchange-SkipListedInternetSender: ip=[129.215.17.202];domain=seine.is.ed.ac.uk
+X-CrossPremisesHeadersPromoted: AMS0EPF00000191.eurprd05.prod.outlook.com
+X-CrossPremisesHeadersFiltered: AMS0EPF00000191.eurprd05.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: AMS0EPF00000191.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Exchange-Organization-AuthSource: hbdkb4.is.ed.ac.uk
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-OriginatorOrg: exseed.ed.ac.uk
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 1f7b4052-5211-4351-387d-08dd8e1ea1d7
+X-MS-Exchange-Organization-SCL: -1
+X-MS-Exchange-Organization-BypassClutter: true
+X-Microsoft-Antispam: BCL:0;ARA:13230040|82310400026|4022899009|35042699022|34020700016|8096899003|13003099007;
+X-Forefront-Antispam-Report: CIP:129.215.235.37;CTRY:GB;LANG:en;SCL:-1;SRV:;IPV:NLI;SFV:NSPM;H:exseed.ed.ac.uk;PTR:hbdkb3.is.ed.ac.uk;CAT:NONE;SFS:(13230040)(82310400026)(4022899009)(35042699022)(34020700016)(8096899003)(13003099007);DIR:INB;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2025 12:22:12.1492
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d8f126b-b651-4789-e360-08dd8e2af5ea
+X-MS-Exchange-CrossTenant-Id: 2e9f06b0-1669-4589-8789-10a06934dc61
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=2e9f06b0-1669-4589-8789-10a06934dc61;Ip=[129.215.235.37];Helo=[exseed.ed.ac.uk]
+X-MS-Exchange-CrossTenant-AuthSource: hbdkb4.is.ed.ac.uk
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR05MB7525
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.7007290
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.8699.029
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910005)(944506478)(944626604)(4710137)(4717057)(4999163)(920097)(930097)(140003)(1420198);
+X-Microsoft-Antispam-Message-Info:
+	=?Windows-1252?Q?9KN5lKNSEzLAcbZOmlpe3sJiNTirxutgPcuxgxuf7ErXmMV/cxbDrdPq?=
+ =?Windows-1252?Q?MPIwo7eLL87mvBqnh+yRhahrI2d8kVRXILWtOBHPoHkIqXLqbsId07s9?=
+ =?Windows-1252?Q?FrjMg6IQjJGnfbyy/7ZCd7V8b+yjMy+DK0KqX3ka2MbaXQj8RyJuU4p5?=
+ =?Windows-1252?Q?T5AUbvXNrZ9YJ/l8ZaXjuIQW2waARCA+dEYaJkJ4cSAGQWszLx7yJUIf?=
+ =?Windows-1252?Q?Rf0ZjNrdP0HkZp2DSSiTpVce5ETFUB/aVyShdFRYEhFK33hZ9aRJL/Qp?=
+ =?Windows-1252?Q?0/Y/zqyRHU1CTFH6DG0erLt1RS2xB7VB6VaZqUbTHp7arbmyd1SGXZck?=
+ =?Windows-1252?Q?+FMe+Gvyhst4Pg8jscmoyu3t/uoW1x926ZGd8DdZB2HvXy4HIgMm6rUn?=
+ =?Windows-1252?Q?WOdFUZYs45nXk/0xFF23hGDDhvZLsgYvfrlSpIwuowi+PsBcyiDdUDQe?=
+ =?Windows-1252?Q?sBe2CTnqaGzqSWCx4NI6KN8SWK12y89Q2sD8pUnuXpW1XHZY26Rj/QJE?=
+ =?Windows-1252?Q?U5DDjqsirIKJ1I2O/+SbtWEpk5I8TAatNg9Q76rK0MXyH6fUgfRtxbds?=
+ =?Windows-1252?Q?0tBHljjofzujIJyVfmrSFeARmKK1w/akGGX1hA42rLHNhBtRW4H/YfwW?=
+ =?Windows-1252?Q?mlFbkkr5B7IKJyyTZtG8ZruDla9QaRQUZUxL4FLikqzYVLGICKdBzoXE?=
+ =?Windows-1252?Q?iINlLq4jv413OD/jEG7V04eU+h9pT6UgYx4g02k19tyX0nq0u2EHmmmy?=
+ =?Windows-1252?Q?Zzh3s2sE0Eokrrc2Sr1D/sjKs35cRVlXl/hxSpi5UL8sRLTtJF8ovi+t?=
+ =?Windows-1252?Q?ldta5Ngx+dZOBU1Gtq2dcGKNjkj10J6EDYRXBjCXUFOIc//khpo0/9W+?=
+ =?Windows-1252?Q?1N51TIQRUMiBbf5TOWiOdIQJrIvUiATA5e8muWsSbcskrBBUpfCOJir8?=
+ =?Windows-1252?Q?ll6QNd6M+mZWbMGAlY3omydNWBj4He5Da2XSf5jkRa6z95D1/uJQkpSj?=
+ =?Windows-1252?Q?lCsQF74QzUJ7Yj9/Uw4IJcmjUQI7qglPx6fsk1R2nhtBcR0zOBUa3bW7?=
+ =?Windows-1252?Q?2NMp3+LJ8dfA/5hz8aWidzk5hgJkMNUGQBzI37ZjDHYV10voP5h58hOg?=
+ =?Windows-1252?Q?v51fBE4XjscJsXCQRb7HRmircFfwIhUnwZfJu3N7fuSYIv+JJ4rdEB8F?=
+ =?Windows-1252?Q?Y04KK3PzkbrvK2r0+/pDmypHEPvzaglXelExv1wQp/c8N8jpNh3r4jvU?=
+ =?Windows-1252?Q?qsmZ6XRtGZuvJT1TXW1rwf+aheGeNQz7yn0rlmMudicKj0HVlS5NkTKQ?=
+ =?Windows-1252?Q?fDxf5hozudV8GDgYrFG4St44PdoPgfnJThF4eTmCtarzyVzK9LmYKn4v?=
+ =?Windows-1252?Q?NhxbGSYbKyUlMkwmFkAkc/F9oVeGuSJneWMi6/ihqL53QJJDrQ7dhRW7?=
+ =?Windows-1252?Q?CvYgBrSgAMVFufr+QaR5L80Ou3RfurZ/snersTaUJNxLywAkpNRFPSBn?=
+ =?Windows-1252?Q?VFKRHLGyICZ3vba18jHN1InTtIttmN6mFL7cPYGjk014IEaw2ZKm3NNl?=
+ =?Windows-1252?Q?3baUXY3UOoVhCVUt+LaN4EWrvdkniCMfoLifMiQeREs2EK25oS8owgp3?=
+ =?Windows-1252?Q?nkPBwPlo/PeBynxkcx58KEmSpTALSqdHmKxYE0u4wllggq8aBvtOsWti?=
+ =?Windows-1252?Q?9H16sbYlQCGHnsuB07ND+LBMz3bihITav77WkBp5YFCLN++A14OVAr59?=
+ =?Windows-1252?Q?L2knQSYGzX9TX9ayI1YIc34ybNIS2mAIXg2upePdCu1sISUJV4jc9J5S?=
+ =?Windows-1252?Q?HhhBEjxCdYdnQM31Q+UDsd1lVo6aFr7PktYdR5S9nT50ch7UBgIqeFH5?=
+ =?Windows-1252?Q?5Ih9Mq4m49Ob1ZBvKI9L1O27bcxSnsnRl6yiyG5nznI6ua3BMEaV8twb?=
+ =?Windows-1252?Q?S8k8SazP2rGifcxpQjVLhRurCBARMuA4i5YHYLzwQMXJoY36DPGF8KDb?=
+ =?Windows-1252?Q?NETuYwx3uUpEgezIgtdVTrj18QINaOwsKEbmU8K5rd1moiYsUriXY71m?=
+ =?Windows-1252?Q?6ubhbpH6nVAs0/hSoUJH6D+qFmQutytqOnVG4pjOWU5Ga5HA/YIKZZqF?=
+ =?Windows-1252?Q?Vkkonphby//uDelM+Q51q+DUpZiDCiHPbaMTVoA3mgU9cALmpBpFhUMz?=
+ =?Windows-1252?Q?eKKNQkjUI9uzIe7y2hwKWLVUOBJCVy7+WKENvGQMwPTgwy8XsQY7JlKt?=
+ =?Windows-1252?Q?Zyn4V5NOx9LngPaZ2wtY4H7+FNsef/bNlVBDmiW44kUm02tnPY38SI9t?=
+ =?Windows-1252?Q?PN86e8R+uwCDsAS4NwHs9OIjqCDArJPKTRvUjpeOCGgIJ9RvoDgUUIP5?=
+ =?Windows-1252?Q?uNm5ErjlWBKJU3Ps5tq5wWw+K76TmkEkD5setSHjExq0C86/9k42hZjQ?=
+ =?Windows-1252?Q?eGwp5GR+CNXZbSq9CQtnwXMxcQrlvrD1QxaaPiwIv07yHgm4ylx/cSBo?=
+ =?Windows-1252?Q?Vj4x4X3qwaog4uDOU31peMyVMJVI1i0Hl+Ug2mi28jpI6DLCyqp+5BsS?=
+ =?Windows-1252?Q?C2uFJj1W6JCGq0Ha?=
+MIME-Version: 1.0
+
+--_000_DB9PR05MB8121585B9EA7AC7B0EE4A790D78BADB9PR05MB8121eurp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Please see event below which may be of interest...
+
+
+
+We would be delighted if you could join us for the debut Forum Theatre perf=
+ormance of The Footnote: Why Would You Say That? by Theatre of the Oppresse=
+d Scotland and inspired by the complex legacy of Scottish philosopher David=
+ Hume.
+
+When: Tuesday 13th of May
+Time: Registration and refreshments 5:00pm, performances 5.30 pm to 7.30 pm
+Where: Scottish Storytelling Centre, 43-45 High St, Edinburgh EH1 1SR<https=
+://www.google.com/maps/search/43-45+High+St,+Edinburgh+EH1+1SR?entry=3Dgmai=
+l&source=3Dg>
+
+You can register here on this private Eventbrite link<https://www.eventbrit=
+e.co.uk/e/the-footnote-why-did-he-write-that-tickets-1292683413889?aff=3Dod=
+dtdtcreator>.  Please do not share this link publicly.
+
+The Footnote offers a modern, engaging and interactive take on how Scotland=
+'s past impacts its present, and how we might best navigate challenging con=
+versations around racism, power and history. The evening will begin with pe=
+rformances by young people who have engaged with the project through worksh=
+ops at the Royal High School.
+
+The Footnote was created entirely by actors working with Theatre of The Opp=
+ressed Scotland. This production is part of a project run by the David Hume=
+ Institute and funded by The National Lottery Heritage Fund.
+
+Registration and refreshments start from 5pm. The performance will start pr=
+omptly at 5.30pm.
+
+Make sure you are the first to know about our new events and research - sub=
+scribe to our mailing list<https://davidhumeinstitute.org/contact>.
+The University of Edinburgh is a charitable body, registered in Scotland, w=
+ith registration number SC005336. Is e buidheann carthannais a th' ann an O=
+ilthigh Dh?n ?ideann, cl?raichte an Alba, ?ireamh cl?raidh SC005336.
+--
+
+You received this message because you are subscribed to the UoE Staff BAME =
+Network mailing list (https://mlist.is.ed.ac.uk/lists/info/uoe-bame). To un=
+subscribe from this group and stop receiving emails from it, please visit h=
+ttps://mlist.is.ed.ac.uk/lists/signoff/uoe-bame
+
+--_000_DB9PR05MB8121585B9EA7AC7B0EE4A790D78BADB9PR05MB8121eurp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+><meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-GB" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
+k-word">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US">Please se=
+e event below which may be of interest&#8230;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US"><o:p>&nbs=
+p;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:EN-US"><o:p>&nbs=
+p;</o:p></span></p>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">We would be delighted if you could<b>&nbsp;join us f=
+or the debut Forum Theatre performance of The Footnote: Why Would You Say T=
+hat?</b>&nbsp;by Theatre of the Oppressed Scotland and inspired by the comp=
+lex legacy of Scottish philosopher David Hume.<br>
+<br>
+<b>When:</b>&nbsp;Tuesday 13th of May<br>
+<b>Time:&nbsp;</b>Registration and refreshments 5:00pm, performances 5.30 p=
+m to 7.30 pm<br>
+<b>Where:</b>&nbsp;Scottish Storytelling Centre,&nbsp;<a href=3D"https://eu=
+r02.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fwww.google.com%2F=
+maps%2Fsearch%2F43-45%2BHigh%2BSt%2C%2BEdinburgh%2BEH1%2B1SR%3Fentry%3Dgmai=
+l%26source%3Dg&amp;data=3D05%7C02%7C%7C9d8f126bb6514789e36008dd8e2af5ea%7C2=
+e9f06b016694589878910a06934dc61%7C0%7C0%7C638823037353688493%7CUnknown%7CTW=
+FpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOI=
+joiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=3D6Wu1Ujk4yKsaJj4ywDA1Fe=
+jPr8THtjDnRTRKnHE3xK4%3D&amp;reserved=3D0" originalsrc=3D"https://www.googl=
+e.com/maps/search/43-45+High+St,+Edinburgh+EH1+1SR?entry=3Dgmail&amp;source=
+=3Dg" target=3D"_blank">43-45 High St, Edinburgh EH1 1SR</a><br>
+<br>
+You can&nbsp;<a href=3D"https://eur02.safelinks.protection.outlook.com/?url=
+=3Dhttps%3A%2F%2Fwww.eventbrite.co.uk%2Fe%2Fthe-footnote-why-did-he-write-t=
+hat-tickets-1292683413889%3Faff%3Doddtdtcreator&amp;data=3D05%7C02%7C%7C9d8=
+f126bb6514789e36008dd8e2af5ea%7C2e9f06b016694589878910a06934dc61%7C0%7C0%7C=
+638823037353710400%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIw=
+LjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&a=
+mp;sdata=3Dj3NvZ1vEUE1pXddCwTufIrQE8r2sEWoskFImUTPKKeg%3D&amp;reserved=3D0"=
+ originalsrc=3D"https://www.eventbrite.co.uk/e/the-footnote-why-did-he-writ=
+e-that-tickets-1292683413889?aff=3Doddtdtcreator" target=3D"_blank">registe=
+r here on this private Eventbrite link</a>.&nbsp; Please do not share this =
+link publicly.<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><br>
+The Footnote offers a&nbsp;<b>modern, engaging and interactive take</b>&nbs=
+p;on how Scotland&#8217;s past impacts its present, and how we might best n=
+avigate challenging conversations around racism, power and history. The eve=
+ning will&nbsp;<strong><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif">begin
+ with performances by young people</span></strong>&nbsp;who have engaged wi=
+th the project through workshops at the Royal High School.<br>
+<br>
+The Footnote was&nbsp;<b>created entirely by actors</b>&nbsp;working with T=
+heatre of The Oppressed Scotland. This production is part of a&nbsp;<b>proj=
+ect run by the David Hume Institute and funded by The National Lottery Heri=
+tage Fund.</b><br>
+<br>
+<b>Registration and refreshments start from 5pm.</b>&nbsp;The performance w=
+ill start promptly at 5.30pm.&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<div>
+<div>
+<div>
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" width=3D"420" style=3D"width:315.0pt">
+<tbody>
+<tr>
+<td style=3D"border:none;border-right:solid #116B7A 1.0pt;padding:0cm 0cm 0=
+cm 0cm">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ve=
+rdana&quot;,sans-serif;color:black">Make sure you are the first to know abo=
+ut our new events and research -&nbsp;<a href=3D"https://eur02.safelinks.pr=
+otection.outlook.com/?url=3Dhttps%3A%2F%2Fdavidhumeinstitute.org%2Fcontact&=
+amp;data=3D05%7C02%7C%7C9d8f126bb6514789e36008dd8e2af5ea%7C2e9f06b016694589=
+878910a06934dc61%7C0%7C0%7C638823037353722889%7CUnknown%7CTWFpbGZsb3d8eyJFb=
+XB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldU=
+IjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=3DKYUb%2BJhzjKYNp2eZUxutZdH%2F2I7eklC5f=
+isgd1udZR0%3D&amp;reserved=3D0" originalsrc=3D"https://davidhumeinstitute.o=
+rg/contact" target=3D"_blank">subscribe to our mailing
+ list</a>.</span><span style=3D"font-size:10.0pt"><o:p></o:p></span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+The University of Edinburgh is a charitable body, registered in Scotland, w=
+ith registration number SC005336. Is e buidheann carthannais a th&#8217; an=
+n an Oilthigh Dh&ugrave;n &Egrave;ideann, cl&agrave;raichte an Alba, &agrav=
+e;ireamh cl&agrave;raidh SC005336.
+<div style=3D"background: transparent; border: none; clear: both; display: =
+block; float: none; position: static">--<br><br>You received this message b=
+ecause you are subscribed to the UoE Staff BAME Network mailing list (https=
+://mlist.is.ed.ac.uk/lists/info/uoe-bame). To unsubscribe from this group a=
+nd stop receiving emails from it, please visit https://mlist.is.ed.ac.uk/li=
+sts/signoff/uoe-bame</div></body>
+</html>
+
+--_000_DB9PR05MB8121585B9EA7AC7B0EE4A790D78BADB9PR05MB8121eurp_--
